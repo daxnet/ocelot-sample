@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Steeltoe.Discovery.Client;
 
 namespace OcelotSample.WebFront
 {
@@ -30,7 +31,7 @@ namespace OcelotSample.WebFront
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddDiscoveryClient(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -48,7 +49,7 @@ namespace OcelotSample.WebFront
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseDiscoveryClient();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
