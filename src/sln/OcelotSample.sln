@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotSample.CalcService", "OcelotSample.CalcService\OcelotSample.CalcService.csproj", "{DD684B7B-BB96-4495-8443-4D2A9472DEEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotSample.WeatherService", "OcelotSample.WeatherService\OcelotSample.WeatherService.csproj", "{5C6C8DB8-C364-49C5-ACAF-AA4622ACC68B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotSample.WebFront", "OcelotSample.WebFront\OcelotSample.WebFront.csproj", "{020D90F4-ABB9-4EC4-9804-B43DDC58A796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotSample.APIGateway", "OcelotSample.APIGateway\OcelotSample.APIGateway.csproj", "{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD684B7B-BB96-4495-8443-4D2A9472DEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD684B7B-BB96-4495-8443-4D2A9472DEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD684B7B-BB96-4495-8443-4D2A9472DEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD684B7B-BB96-4495-8443-4D2A9472DEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C6C8DB8-C364-49C5-ACAF-AA4622ACC68B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C6C8DB8-C364-49C5-ACAF-AA4622ACC68B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C6C8DB8-C364-49C5-ACAF-AA4622ACC68B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C6C8DB8-C364-49C5-ACAF-AA4622ACC68B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020D90F4-ABB9-4EC4-9804-B43DDC58A796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020D90F4-ABB9-4EC4-9804-B43DDC58A796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020D90F4-ABB9-4EC4-9804-B43DDC58A796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020D90F4-ABB9-4EC4-9804-B43DDC58A796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A4218FC-AFD5-4A7A-AA4F-27F0A3B9DB6D}
+	EndGlobalSection
+EndGlobal

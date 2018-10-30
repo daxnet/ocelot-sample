@@ -1,0 +1,56 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/calc/add/{x}/{y}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 49814
+        }
+      ],
+      "UpstreamPathTemplate": "/add/{x}/{y}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/calc/sub/{x}/{y}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 49814
+        }
+      ],
+      "UpstreamPathTemplate": "/sub/{x}/{y}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/calc/stddev",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 49814
+        }
+      ],
+      "UpstreamPathTemplate": "/stddev",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/weather/stddev/{city}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50379
+        }
+      ],
+      "UpstreamPathTemplate": "/weather-stddev/{city}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration"
+  }
+}
