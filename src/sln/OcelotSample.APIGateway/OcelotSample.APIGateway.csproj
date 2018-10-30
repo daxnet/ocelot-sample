@@ -11,10 +11,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Ocelot" Version="12.0.1" />
+    <PackageReference Include="Ocelot" Version="12.1.0-alpha0013" />
+    <PackageReference Include="Ocelot.Provider.Eureka" Version="0.1.2" />
+    <PackageReference Include="Steeltoe.Discovery.Client" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="ocelot.configuration.dynamic.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="ocelot.configuration.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

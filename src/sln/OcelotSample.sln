@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotSample.WeatherService
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotSample.WebFront", "OcelotSample.WebFront\OcelotSample.WebFront.csproj", "{020D90F4-ABB9-4EC4-9804-B43DDC58A796}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotSample.APIGateway", "OcelotSample.APIGateway\OcelotSample.APIGateway.csproj", "{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotSample.APIGateway", "OcelotSample.APIGateway\OcelotSample.APIGateway.csproj", "{8CAB5ED0-833A-436D-9E9A-5F50B57899C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{ABFE45EF-070D-44CF-B1B0-1095EFBE10A7}"
+	ProjectSection(SolutionItems) = preProject
+		issue.txt = issue.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

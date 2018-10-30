@@ -1,0 +1,17 @@
+{
+  "ReRoutes": [
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8761,
+      "Type": "Eureka",
+      "Token": null,
+      "ConfigurationKey": null
+    },
+
+    "DownstreamScheme": "http"
+  }
+}
