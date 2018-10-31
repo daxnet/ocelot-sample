@@ -1,0 +1,73 @@
+version: '3'
+services:
+  ocelot-sample-disco:
+    image: ocelot-sample-disco
+    build:
+      context: helper/OcelotSampleDiscoveryService
+      dockerfile: Dockerfile
+    container_name: ocelot-sample-disco
+
+  ocelot-sample-calc:
+    image: ocelot-sample-calc
+    build:
+      context: sln
+      dockerfile: OcelotSample.CalcService/Dockerfile
+    depends_on:
+      - ocelot-sample-disco
+    links:
+      - ocelot-sample-disco
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:49814
+    container_name: ocelot-sample-calc
+
+  ocelot-sample-weather:
+    image: ocelot-sample-weather
+    build:
+      context: sln
+      dockerfile: OcelotSample.WeatherService/Dockerfile
+    depends_on:
+      - ocelot-sample-disco
+    links:
+      - ocelot-sample-disco
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:50379
+    container_name: ocelot-sample-weather
+
+  ocelot-sample-gateway:
+    image: ocelot-sample-gateway
+    build:
+      context: sln
+      dockerfile: OcelotSample.APIGateway/Dockerfile
+    depends_on:
+      - ocelot-sample-disco
+      - ocelot-sample-calc
+      - ocelot-sample-weather
+    links:
+      - ocelot-sample-disco
+      - ocelot-sample-calc
+      - ocelot-sample-weather
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:59495
+    container_name: ocelot-sample-gateway
+  
+  ocelot-sample-web:
+    image: ocelot-sample-web
+    build:
+      context: sln
+      dockerfile: OcelotSample.WebFront/Dockerfile
+    depends_on:
+      - ocelot-sample-disco
+      - ocelot-sample-calc
+      - ocelot-sample-weather
+      - ocelot-sample-gateway
+    links:
+      - ocelot-sample-gateway
+    ports:
+      - 55504:55504
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:55504
+    container_name: ocelot-sample-web
