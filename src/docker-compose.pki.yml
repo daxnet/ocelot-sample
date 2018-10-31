@@ -19,6 +19,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:49814
+      - spring__application__name=calc
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=false
+      - eureka__instance__port=49814
+      - eureka__instance__preferIpAddress=false
     container_name: ocelot-sample-calc
 
   ocelot-sample-weather:
@@ -33,6 +38,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:50379
+      - spring__application__name=weather
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=true
+      - eureka__instance__port=50379
+      - eureka__instance__preferIpAddress=false
     container_name: ocelot-sample-weather
 
   ocelot-sample-gateway:
@@ -51,6 +61,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:59495
+      - spring__application__name=api-gateway
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=true
+      - eureka__client__shouldRegisterWithEureka=true
+      - eureka__instance__port=59495
+      - eureka__instance__preferIpAddress=false
     container_name: ocelot-sample-gateway
   
   ocelot-sample-web:
@@ -64,10 +80,14 @@ services:
       - ocelot-sample-weather
       - ocelot-sample-gateway
     links:
+      - ocelot-sample-disco
       - ocelot-sample-gateway
     ports:
       - 55504:55504
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:55504
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=true
+      - eureka__client__shouldRegisterWithEureka=false
     container_name: ocelot-sample-web
