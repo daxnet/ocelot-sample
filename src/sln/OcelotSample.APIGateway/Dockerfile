@@ -7,7 +7,7 @@ WORKDIR /src
 COPY . .
 RUN dotnet restore
 WORKDIR "/src/OcelotSample.APIGateway"
-RUN dotnet publish "OcelotSample.APIGetway.csproj" -c Release -o /app
+RUN dotnet publish "OcelotSample.APIGateway.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
