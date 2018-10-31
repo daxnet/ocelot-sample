@@ -18,8 +18,9 @@
     "OcelotSample.WebFront": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5000",
+      "applicationUrl": "http://localhost:55504",
       "environmentVariables": {
+        "ASPNETCORE_URLS": "http://*:55504",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
