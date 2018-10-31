@@ -1,5 +1,10 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+RUN apt-get -y update
+RUN apt-get install -y net-tools
+RUN apt-get install -y netcat
 WORKDIR /app
+COPY wait-for .
+RUN chmod 777 wait-for
 EXPOSE 55504
 
 FROM microsoft/dotnet:2.1-sdk AS publish

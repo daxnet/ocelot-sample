@@ -5,8 +5,8 @@ services:
     build:
       context: helper/OcelotSampleDiscoveryService
       dockerfile: Dockerfile
-    ports:
-      - 8761:8761
+    # ports:
+    #  - 8761:8761
     container_name: ocelot-sample-disco
 
   ocelot-sample-calc:
@@ -14,6 +14,7 @@ services:
     build:
       context: sln
       dockerfile: OcelotSample.CalcService/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.CalcService.dll'
     depends_on:
       - ocelot-sample-disco 
     links:
@@ -34,6 +35,7 @@ services:
     build:
       context: sln
       dockerfile: OcelotSample.WeatherService/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.WeatherService.dll'
     depends_on:
       - ocelot-sample-disco
     links:
@@ -46,6 +48,7 @@ services:
       - eureka__client__shouldFetchRegistry=true
       - eureka__instance__port=50379
       - eureka__instance__preferIpAddress=true
+    restart: on-failure
     container_name: ocelot-sample-weather
 
   ocelot-sample-gateway:
@@ -53,6 +56,7 @@ services:
     build:
       context: sln
       dockerfile: OcelotSample.APIGateway/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.APIGateway.dll'
     depends_on:
       - ocelot-sample-disco
       - ocelot-sample-calc
@@ -61,8 +65,8 @@ services:
       - ocelot-sample-disco
       - ocelot-sample-calc
       - ocelot-sample-weather
-    ports:
-      - 59495:59495
+    # ports:
+    #  - 59495:59495
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:59495
@@ -72,6 +76,7 @@ services:
       - eureka__client__shouldFetchRegistry=true
       - eureka__instance__port=59495
       - eureka__instance__preferIpAddress=true
+    restart: on-failure
     container_name: ocelot-sample-gateway
   
   ocelot-sample-web:
@@ -79,6 +84,7 @@ services:
     build:
       context: sln
       dockerfile: OcelotSample.WebFront/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.WebFront.dll'
     depends_on:
       - ocelot-sample-disco
       - ocelot-sample-calc
@@ -95,4 +101,5 @@ services:
       - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
       - eureka__client__shouldFetchRegistry=true
       - eureka__client__shouldRegisterWithEureka=false
+    restart: on-failure
     container_name: ocelot-sample-web
