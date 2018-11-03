@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Steeltoe.Discovery.Client;
 
 namespace OcelotSample.APIGateway
 {
@@ -26,8 +27,8 @@ namespace OcelotSample.APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDiscoveryClient(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //services.AddOcelot();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,8 +38,9 @@ namespace OcelotSample.APIGateway
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseOcelot();
-            //app.UseMvc();
+            //app.UseOcelot();
+            app.UseMvc();
+            app.UseDiscoveryClient();
         }
     }
 }

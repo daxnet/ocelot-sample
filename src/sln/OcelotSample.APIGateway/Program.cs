@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Eureka;
 
 namespace OcelotSample.APIGateway
 {
@@ -24,11 +25,11 @@ namespace OcelotSample.APIGateway
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((configBuilder) =>
             {
-                configBuilder.AddJsonFile("ocelot.configuration.json");
+                configBuilder.AddJsonFile("ocelot.configuration.dynamic.json");
             })
             .ConfigureServices((buildContext, services) =>
             {
-                services.AddOcelot();
+                services.AddOcelot().AddEureka();
             })
             .UseStartup<Startup>()
             .Configure(app =>

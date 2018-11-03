@@ -1,0 +1,105 @@
+version: '3'
+services:
+  ocelot-sample-disco:
+    image: ocelot-sample-disco
+    build:
+      context: helper/OcelotSampleDiscoveryService
+      dockerfile: Dockerfile
+    # ports:
+    #  - 8761:8761
+    container_name: ocelot-sample-disco
+
+  ocelot-sample-calc:
+    image: ocelot-sample-calc
+    build:
+      context: sln
+      dockerfile: OcelotSample.CalcService/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.CalcService.dll'
+    depends_on:
+      - ocelot-sample-disco 
+    links:
+      - ocelot-sample-disco
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:49814
+      - spring__application__name=calc
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=false
+      - eureka__instance__port=49814
+      - eureka__instance__preferIpAddress=true
+    restart: on-failure
+    container_name: ocelot-sample-calc
+
+  ocelot-sample-weather:
+    image: ocelot-sample-weather
+    build:
+      context: sln
+      dockerfile: OcelotSample.WeatherService/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.WeatherService.dll'
+    depends_on:
+      - ocelot-sample-disco
+    links:
+      - ocelot-sample-disco
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:50379
+      - spring__application__name=weather
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=true
+      - eureka__instance__port=50379
+      - eureka__instance__preferIpAddress=true
+    restart: on-failure
+    container_name: ocelot-sample-weather
+
+  ocelot-sample-gateway:
+    image: ocelot-sample-gateway
+    build:
+      context: sln
+      dockerfile: OcelotSample.APIGateway/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.APIGateway.dll'
+    depends_on:
+      - ocelot-sample-disco
+      - ocelot-sample-calc
+      - ocelot-sample-weather
+    links:
+      - ocelot-sample-disco
+      - ocelot-sample-calc
+      - ocelot-sample-weather
+    # ports:
+    #  - 59495:59495
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:59495
+      - spring__application__name=api-gateway
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldRegisterWithEureka=true
+      - eureka__client__shouldFetchRegistry=true
+      - eureka__instance__port=59495
+      - eureka__instance__preferIpAddress=true
+    restart: on-failure
+    container_name: ocelot-sample-gateway
+  
+  ocelot-sample-web:
+    image: ocelot-sample-web
+    build:
+      context: sln
+      dockerfile: OcelotSample.WebFront/Dockerfile.pki
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.WebFront.dll'
+    depends_on:
+      - ocelot-sample-disco
+      - ocelot-sample-calc
+      - ocelot-sample-weather
+      - ocelot-sample-gateway
+    links:
+      - ocelot-sample-disco
+      - ocelot-sample-gateway
+    ports:
+      - 55504:55504
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:55504
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=true
+      - eureka__client__shouldRegisterWithEureka=false
+    restart: on-failure
+    container_name: ocelot-sample-web
