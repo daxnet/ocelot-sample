@@ -11,6 +11,9 @@
       "Token": null,
       "ConfigurationKey": null
     },
+    "LoadBalancerOptions": {
+      "Type": "RoundRobin"
+    },
 
     "DownstreamScheme": "http"
   }

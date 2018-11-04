@@ -19,6 +19,10 @@ namespace OcelotSample.CalcService
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            .ConfigureAppConfiguration((context, builder) =>
+            {
+                builder.AddCommandLine(args);
+            })
+            .UseStartup<Startup>();
     }
 }

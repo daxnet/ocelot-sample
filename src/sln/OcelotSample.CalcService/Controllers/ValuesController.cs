@@ -10,6 +10,10 @@ namespace OcelotSample.CalcService.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        [HttpGet("info")]
+        public ActionResult<string> Info()
+            => Environment.GetEnvironmentVariable("machineName") ?? Environment.MachineName;
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
