@@ -5,12 +5,12 @@ services:
     build:
       context: helper/OcelotSampleDiscoveryService
       dockerfile: Dockerfile
-    # ports:
-    #  - 8761:8761
+    ports:
+      - 8761:8761
     container_name: ocelot-sample-disco
 
-  ocelot-sample-calc:
-    image: ocelot-sample-calc
+  ocelot-sample-calc1:
+    image: ocelot-sample-calc1
     build:
       context: sln
       dockerfile: OcelotSample.CalcService/Dockerfile
@@ -27,8 +27,31 @@ services:
       - eureka__client__shouldFetchRegistry=false
       - eureka__instance__port=49814
       - eureka__instance__preferIpAddress=true
+      - machineName=calc-A
     restart: on-failure
-    container_name: ocelot-sample-calc
+    container_name: ocelot-sample-calc1
+
+  ocelot-sample-calc2:
+    image: ocelot-sample-calc2
+    build:
+      context: sln
+      dockerfile: OcelotSample.CalcService/Dockerfile
+    command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.CalcService.dll'
+    depends_on:
+      - ocelot-sample-disco 
+    links:
+      - ocelot-sample-disco
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:49815
+      - spring__application__name=calc
+      - eureka__client__serviceUrl=http://ocelot-sample-disco:8761/eureka
+      - eureka__client__shouldFetchRegistry=false
+      - eureka__instance__port=49815
+      - eureka__instance__preferIpAddress=true
+      - machineName=calc-B
+    restart: on-failure
+    container_name: ocelot-sample-calc2
 
   ocelot-sample-weather:
     image: ocelot-sample-weather
@@ -59,14 +82,10 @@ services:
     command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.APIGateway.dll'
     depends_on:
       - ocelot-sample-disco
-      - ocelot-sample-calc
-      - ocelot-sample-weather
     links:
       - ocelot-sample-disco
-      - ocelot-sample-calc
-      - ocelot-sample-weather
     # ports:
-    #  - 59495:59495
+    #   - 59495:59495
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:59495
@@ -87,8 +106,6 @@ services:
     command: sh -c './wait-for -t 100 ocelot-sample-disco:8761 -- dotnet ./OcelotSample.WebFront.dll'
     depends_on:
       - ocelot-sample-disco
-      - ocelot-sample-calc
-      - ocelot-sample-weather
       - ocelot-sample-gateway
     links:
       - ocelot-sample-disco

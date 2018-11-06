@@ -5,7 +5,7 @@ RUN apt-get install -y netcat
 WORKDIR /app
 COPY wait-for .
 RUN chmod 777 wait-for
-EXPOSE 49814
+EXPOSE 49800-49899
 
 FROM microsoft/dotnet:2.1-sdk AS publish
 WORKDIR /src

@@ -71,6 +71,12 @@ namespace OcelotSample.WebFront.Controllers
                 stddevGuangzhouResponse.EnsureSuccessStatusCode();
                 var stddevGuangzhouResult = await stddevGuangzhouResponse.Content.ReadAsStringAsync();
                 ViewData["stddev_gz"] = $"广州：{stddevGuangzhouResult}";
+
+                // 查看Calc服务的App名称
+                var calcAppNameResponse = await client.GetAsync($"{apiGatewayUri}calc/api/values/info");
+                calcAppNameResponse.EnsureSuccessStatusCode();
+                var calcAppNameResult = await calcAppNameResponse.Content.ReadAsStringAsync();
+                ViewData["calc_app_name"] = $"计算服务名称：{calcAppNameResult}";
             }
             return View();
         }
