@@ -11,6 +11,10 @@
 - 博客文章：[《ASP.NET Core中Ocelot的使用：基于Spring Cloud Netflix Eureka的动态路由》](http://sunnycoding.cn/2018/11/03/aspnetcore-ocelot-dynamic-routing-with-eureka/)
 - 源代码：[查看/下载](https://github.com/daxnet/ocelot-sample/releases/tag/chapter_2)
 
+### 案例三：基于服务发现的负载均衡
+- 博客文章：[《ASP.NET Core中Ocelot的使用：基于服务发现的负载均衡》](http://sunnycoding.cn/2018/11/06/aspnetcore-ocelot-service-discovery-load-balancing/)
+- 源代码：[查看/下载](https://github.com/daxnet/ocelot-sample/releases/tag/chapter_3)
+
 ## 源码使用
 - C#开发环境：Visual Studio 2017与.NET Core工作负载，或者Visual Studio Code
 - Java开发环境：Eclipse，Maven
